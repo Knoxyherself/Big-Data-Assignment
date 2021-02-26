@@ -5,25 +5,15 @@
 
 - Login: root
 - Password: Sammy100!
-- See Appendix A for copy of Pig Scripts (TWEET, RETWEET, MENTIONS)
-Define CSVLoader org.apache.pig.piggybank.storage.CSVLoader();                  
-TWEET = LOAD 'hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data/TWEET*.csv' USING CSVLoader()                  
-AS (index:int,context:chararray,date:chararray,tw_id:chararray,is_media:chararray,is_retweet:chararray,no_likes:chararray,no_re
-tweets:chararray,reply:chararray,text:chararray,user_name:chararray);           
-DESCRIBE TWEET;                                                                 
-STORE TWEET INTO 'root/user/Uni_Assignment/TWEET' USING PigStorage('|');
-
-
-- Drag and drop images (requires your Dropbox account be linked)
-- Import and save files from GitHub, Dropbox, Google Drive and One Drive
-- Drag and drop markdown and HTML files into Dillinger
-- Export documents as Markdown, HTML and PDF
+- Scripts are saved in HDFS (maria_dev/maria_dev) in this location: root/root/user/Uni_Assignment (apologies for the other files, I was unable to delete) 
+- See Appendix A for copy of Pig Scripts (TWEET, RETWEET, MENTIONS, HASHTAGS_TIMELINES and TWEET_RETWEET)
 
 ## - ✨Part  2✨
 
 Markdown is a lightweight markup language based on the formatting conventions
 that people naturally use in email.
 As [John Gruber] writes on the [Markdown site][df1]
+
 ## - ✨Part  3✨
 
 
