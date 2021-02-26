@@ -9,10 +9,15 @@
 >ambari-server stop
 
 >Ambari: Service monitoring and access to HDFS  http://localhost:8080/ (Links to an external site.)     login:  maria_dev / maria_dev
+
 >Zeppelin Spark notebook programming client: http://localhost:am9995/#/ (Links to an external site.)
+
 >HDP shell on the web (used to program Pig Latin scripts):  http://localhost:4200/ (Links to an external site.)
+
 >Neo4J: http://localhost:7474/browser/  (Links to an external site.)     
+
 >neo4j /y65Ed652X&
+
 ##Start VM
 
 ssh -L7474:localhost:7474 -L7687:localhost:7687 -L 8000:localhost:8000 -L 4200:localhost:4200 -L 8080:localhost:8080 -L 8888:localhost:8888 -L 8890:localhost:8890 -L 9995:localhost:9995 -L 30800:localhost:30800 -L 1080:localhost:1080 -L 4040:localhost:4040 -p50088 pmissier@ml-lab-cbe4a721-1d12-4a04-bf73-b7eeeb4bee66.uksouth.cloudapp.azure.com
@@ -26,16 +31,10 @@ for x in $(yarn application -list -appStates RUNNING | awk 'NR > 2 { print $1 }'
 
 for x in $(yarn application -list -appTypes SPARK | awk 'NR > 2 { print $1 }'); do yarn application -kill $x; done
 
->Ambari: Service monitoring and access to HDFS  http://localhost:8080/ (Links to an external site.)     login:  maria_dev / maria_dev
->Zeppelin Spark notebook programming client: http://localhost:am9995/#/ (Links to an external site.)
->HDP shell on the web (used to program Pig Latin scripts):  http://localhost:4200/ (Links to an external site.)
->Neo4J: http://localhost:7474/browser/  (Links to an external site.)     neo4j /y65Ed652X&
-
 scp -r -P <port> <local file path> <username>@<hostname>:~/data
 
 scp -r -P -p 50088 pmissier@ml-lab-cbe4a721-1d12-4a04-bf73-b7eeeb4bee66.uksouth.cloudapp.azure.com <local file path> ssh -L7474:localhost:7474 -L7687:localhost:7687 -L 8000:localhost:8000 -L 4200:localhost:4200 -L 8080:localhost:8080 -L 8888:localhost:8888 -L 8890:localhost:8890 -L 9995:localhost:9995 -L 30800:localhost:30800 -L 1080:localhost:1080 -L 4040:localhost:4040 -p
 :~/data
-
 
 For unioning all files in one directory -- same answer as @Lester Martin. 
 You can use globs (wildcard characters) in your LOAD path to pull a subset of files from a directory, based on the filename pattern. See http://chimera.labs.oreilly.com/books/1234000001811/ch05.html#pl_load. 
