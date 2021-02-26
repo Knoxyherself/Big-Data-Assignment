@@ -3,7 +3,17 @@
 
 ## - ✨Part 1✨ 
 
-- My Pig scripts are saved in my folderrrrrr
+- Login: root
+- Password: Sammy100!
+- See Appendix A for copy of Pig Scripts (TWEET, RETWEET, MENTIONS)
+Define CSVLoader org.apache.pig.piggybank.storage.CSVLoader();                  
+TWEET = LOAD 'hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data/TWEET*.csv' USING CSVLoader()                  
+AS (index:int,context:chararray,date:chararray,tw_id:chararray,is_media:chararray,is_retweet:chararray,no_likes:chararray,no_re
+tweets:chararray,reply:chararray,text:chararray,user_name:chararray);           
+DESCRIBE TWEET;                                                                 
+STORE TWEET INTO 'root/user/Uni_Assignment/TWEET' USING PigStorage('|');
+
+
 - Drag and drop images (requires your Dropbox account be linked)
 - Import and save files from GitHub, Dropbox, Google Drive and One Drive
 - Drag and drop markdown and HTML files into Dillinger
@@ -15,6 +25,10 @@ Markdown is a lightweight markup language based on the formatting conventions
 that people naturally use in email.
 As [John Gruber] writes on the [Markdown site][df1]
 ## - ✨Part  3✨
+
+
+## - ✨Appendix A - Pig Scripts✨
+
 
 > The overriding design goal for Markdown's
 > formatting syntax is to make it as readable
