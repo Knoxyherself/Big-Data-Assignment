@@ -3,7 +3,7 @@
 
 ## - ✨Part 1✨ 
 
-- My Pig scripts are saved in my 
+- My Pig scripts are saved in my folderrrrrr
 - Drag and drop images (requires your Dropbox account be linked)
 - Import and save files from GitHub, Dropbox, Google Drive and One Drive
 - Drag and drop markdown and HTML files into Dillinger
