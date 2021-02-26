@@ -30,13 +30,12 @@ As [John Gruber] writes on the [Markdown site][df1]
 ## - ✨Appendix A - Pig Scripts✨
 
 
-> The overriding design goal for Markdown's
-> formatting syntax is to make it as readable
-> as possible. The idea is that a
-> Markdown-formatted document should be
-> publishable as-is, as plain text, without
-> looking like it's been marked up with tags
-> or formatting instructions.
+> Define CSVLoader org.apache.pig.piggybank.storage.CSVLoader();                                                                 
+TWEET = LOAD 'hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data/TWEET*.csv' USING CSVLoader()                  
+AS (index:int,context:chararray,date:chararray,tw_id:chararray,is_media:chararray,is_retweet:chararray,no_likes:chararray,no_re
+tweets:chararray,reply:chararray,text:chararray,user_name:chararray);                                                          
+DESCRIBE TWEET;                                                                                                                
+STORE TWEET INTO 'root/user/Uni_Assignment/TWEET' USING PigStorage('|'); 
 
 This text you see here is *actually- written in Markdown! To get a feel
 for Markdown's syntax, type some text into the left window and
