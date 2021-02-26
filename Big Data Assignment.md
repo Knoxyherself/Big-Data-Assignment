@@ -29,6 +29,7 @@ As [John Gruber] writes on the [Markdown site][df1]
 
 ## - ✨Appendix A - Pig Scripts✨
 
+TWEET
 
 > Define CSVLoader org.apache.pig.piggybank.storage.CSVLoader();                                                                 
 TWEET = LOAD 'hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data/TWEET*.csv' USING CSVLoader()                  
@@ -37,9 +38,53 @@ tweets:chararray,reply:chararray,text:chararray,user_name:chararray);
 DESCRIBE TWEET;                                                                                                                
 STORE TWEET INTO 'root/user/Uni_Assignment/TWEET' USING PigStorage('|'); 
 
-This text you see here is *actually- written in Markdown! To get a feel
-for Markdown's syntax, type some text into the left window and
-watch the results in the right.
+RETWEET
+
+> Define CSVLoader org.apache.pig.piggybank.storage.CSVLoader();                                                                 
+RETWEET = LOAD 'hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data/RETWEET*.csv' USING CSVLoader()              
+AS (index:int,rt_id:chararray,context:chararray,rt_user:chararray,tw_id:chararray);                                            
+DESCRIBE RETWEET;                                                                                                              
+STORE RETWEET INTO 'root/user/Uni_Assignment/RETWEET' USING PigStorage('|'); 
+
+MENTIONS
+
+Define CSVLoader org.apache.pig.piggybank.storage.CSVLoader();                                                                 
+MENTIONS = LOAD 'hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data/MENTIONS*.csv' USING CSVLoader()            
+AS (index:int,context:chararray,mentions:chararray,tw_id:chararray);                                                           
+DESCRIBE MENTIONS;                                                                                                             
+STORE MENTIONS INTO 'root/user/Uni_Assignment/MENTIONS' USING PigStorage('|'); 
+
+HASHTAGS_TIMELINES
+
+Define CSVLoader org.apache.pig.piggybank.storage.CSVLoader();                                                                 
+HASHTAGS_TIMELINES = LOAD 'hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data/HASHTAGS_TIMELINES.csv'           
+USING CSVLoader()                                                                                                              
+AS (index:int,hashtag:chararray,tw_id:chararray,user_id:chararray);                                                            
+DESCRIBE HASHTAGS_TIMELINES;                                                                                                   
+STORE HASHTAGS_TIMELINES INTO 'root/user/Uni_Assignment/HASHTAGS_TIMELINES' USING PigStorage('|');  
+
+TWEET_RETWEET
+
+Define CSVLoader org.apache.pig.piggybank.storage.CSVLoader();                                                                 
+tweetage = LOAD 'hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data/TWEET*.csv' USING CSVLoader();              
+tweetraw = FILTER tweetage BY $0>1;                                                                                            
+tweetdetails = FOREACH tweetraw GENERATE $0 AS index, $1 AS context, $2 AS date, $3 AS tw_id, $4 AS is_media, $5 AS is_retweet,
+ $6 AS no_likes, $7 AS no_retweets, $8 AS reply, $9 AS text, $10 AS user_name;                                                 
+                                                                                                                               
+retweetage = LOAD 'hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data/RETWEET*.csv' USING CSVLoader();          
+retweetraw = FILTER retweetage BY $0>1;                                                                                        
+retweetdetails = FOREACH retweetraw GENERATE $0 AS index, $1 AS rt_id, $2 AS context, $3 AS rt_user, $4 AS tw_id;              
+                                                                                                                               
+jointweetretweet = JOIN tweetdetails by tw_id, retweetdetails by tw_id;                                                        
+TWEET_RETWEET = FOREACH jointweetretweet GENERATE $0 AS index, $1 AS tw_id, $2 AS mentions, $3 AS rt_id, $4 AS rt_user, $5 AS d
+ate, $6 AS context, $7 AS is_media, $8 AS is_retweet,  $9 AS no_likes, $10 AS no_retweets, $11 AS reply, $12 AS text, $13 AS us
+er_name;                                                                                                                       
+                                                                                                                               
+DESCRIBE TWEET_RETWEET;                                                                                                        
+STORE TWEET_RETWEET INTO 'root/user/Uni_Assignment/TWEET_RETWEET' USING PigStorage('|');
+
+
+
 
 ## Tech
 
