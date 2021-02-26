@@ -22,14 +22,15 @@
 
 >neo4j /y65Ed652X&
 
-#Start VM
+# Start VM
 
 ssh -L7474:localhost:7474 -L7687:localhost:7687 -L 8000:localhost:8000 -L 4200:localhost:4200 -L 8080:localhost:8080 -L 8888:localhost:8888 -L 8890:localhost:8890 -L 9995:localhost:9995 -L 30800:localhost:30800 -L 1080:localhost:1080 -L 4040:localhost:4040 -p50088 pmissier@ml-lab-cbe4a721-1d12-4a04-bf73-b7eeeb4bee66.uksouth.cloudapp.azure.com
 
-#Start dockers:
+# Start dockers:
 
 sudo docker start sandbox-hdp; sudo docker start sandbox-proxy
-If TEZ hangs:
+
+# If TEZ hangs:
 
 for x in $(yarn application -list -appStates RUNNING | awk 'NR > 2 { print $1 }'); do yarn application -kill $x; done
 
