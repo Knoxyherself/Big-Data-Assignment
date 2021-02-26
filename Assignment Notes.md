@@ -1,11 +1,15 @@
 # Assignment Notes
 
 -Password: Sammy100!
+
 -Ambari: Maria-dev
+
 -Root / Sammy100!
+
 -Neo4j password: y65Ed652X&
 
 -ambari-agent stop
+
 -ambari-server stop
 
 >Ambari: Service monitoring and access to HDFS  http://localhost:8080/ (Links to an external site.)     login:  maria_dev / maria_dev
