@@ -7,7 +7,7 @@
 - Password: Sammy100!
 - Scripts are saved in HDFS (maria_dev/maria_dev) in this location: root/root/user/Uni_Assignment (apologies for the other files, I was unable to delete) 
 - See Appendix A for copy of Pig Scripts (TWEET, RETWEET, MENTIONS, HASHTAGS_TIMELINES and TWEET_RETWEET)
-- A copy of output files that I created can be found here:
+- A copy of the output files I created (TWEET_RETWEET & TWEET_MENTIONS) for part 2 can also be found here:
 
 
 ## - ✨Part  2✨
