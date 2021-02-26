@@ -1,5 +1,4 @@
-# Dillinger
-## _The Last Markdown Editor, Ever_
+# Assignment Notes
 
 >Password: Sammy100!
 >Ambari: Maria-dev
