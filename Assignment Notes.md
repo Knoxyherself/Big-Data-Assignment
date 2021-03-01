@@ -203,3 +203,122 @@ LIMIT 20
 
 Label propogation example has weights 
 
+#show the top 10 (for each context)
+
+You can link all of these together into something like:
+Lines.filter(lambda x: “inferno” in x).map(lambda s: s.upper()).take(5)
+
+OR
+
+You can define functions:
+
+Def uppercase(doc)
+	Return doc.map(lambda s: s.upper())
+
+Def filterDocForTerm(doc, term):
+	Return doc.filter (lambda x: term in x)
+
+Part 3
+
+For each context, create a separate graph projection 
+Call GDS library methods to compute properties of that context network:
+
+-	The label propagation community detection algorithm
+
+-	The degree centrality for each node
+
+Website that explains it all:
+https://towardsdatascience.com/getting-started-with-neo4j-in-10-minutes-94788d99cc2b
+
+Code:
+
+MATCH(c:Context),(x:User)
+WHERE c.Name="wear-purple-for-jia-2018"AND x.Name="foomooboo"
+CREATE(c)-[r:TWEET]->(o)
+RETURN c,x,o
+ 
+MATCH(c:FromUser),(x:ToUser)
+WHERE c.Name="foomooboo"AND x.Name="Ed_Miliband"
+CREATE(c)-[r:TWEET]->(x)
+RETURN c,r,x
+
+LOAD CSV FROM 'https://github.com/Knoxyherself/Big-Data-Assignment/blob/main/uu.csv' AS row
+RETURN row
+LIMIT 20
+
+
+AS line CREATE (:User {Tweeter: line.Name, Context: (line.Context)})
+
+LOAD CSV WITH HEADERS FROM 'https://github.com/Knoxyherself/Big-Data-Assignment/blob/main/uu.csv' AS line CREATE (Tweet:Tweet {TweetContext:tweet.context, from:tweet.from, to:tweet.to, weight: tweet.weight})
+CREATE (from)-[:TWEET]->(to)
+
+LOAD CSV WITH HEADERS FROM "file:///movies.csv" AS csvLine
+MERGE (country:Country {name: csvLine.country})
+CREATE (movie:Movie {id: toInteger(csvLine.id), title: csvLine.title, year:toInteger(csvLine.year)})
+CREATE (movie)-[:ORIGIN]->(country)
+
+Need to create a user node that has a context label and a weight label
+We’ll have a user-user relationship
+What is the type?
+What is an edge? 
+
+
+25 context networks
+Each node and edge belong to a different context
+Call GDS library methods to compute the properties of that context network 
+
+EDGE BETWEENNESS CENTRALITY =  The number of shortest paths among all pairs of nodes within the network passing through that edge 
+
+Label propogation: we use asynchronous propogation 
+
+Tweet = weighted edge
+User – node  
+
+LOAD CSV FROM 'https://github.com/Knoxyherself/Big-Data-Assignment' AS row
+RETURN row
+LIMIT 20
+sudo mv hdfs://sandbox-hdp.hortonworks.com:8020/user/maria_dev/data/uu.csv /var/lib/neo4j/import
+
+
+hdfs://sandbox-hdp.hortonworks.com:8020/user/coursework/data/data
+
+
+Got nodes:
+
+load csv with headers from 'https://raw.githubusercontent.com/Knoxyherself/Big-Data-Assignment/main/uu.csv' AS row 
+
+CREATE (a:Tweeter { Name: row.from}) 
+CREATE (b:Tweeter { Name: row.to}) 
+RETURN a,b 
+LIMIT 20
+
+
+load csv with headers from 'https://raw.githubusercontent.com/Knoxyherself/Big-Data-Assignment/main/uu.csv' AS row 
+MATCH (c:Context {Name: row.context= "dry-january-2018"})
+CREATE (a:Tweeter { Name: row.from}) 
+CREATE (b:Tweeter { Name: row.to}) 
+CREATE (a)-[r:TWEET]->(b)C
+
+
+
+r.weight = toInteger(row.Weight);
+
+
+Each network is distinguished by the context, so we need to separate each context (i.e. filter by “jeans-for-genes day” by creating a named graph. 
+We need to project out “jeans-for-genes-day”. “Dry-january day….)
+First we need a named graph for each context. 
+One we have this big graph database of all 25 networks, we can use the algorithms. 
+
+CALL gds.graph.create.cypher(
+    'my-cypher-graph',
+    'MATCH (n:City) RETURN id(n) AS id, n.stateId AS community, n.population AS population',
+    'MATCH (n:City)-[r:ROAD]->(m:City) RETURN id(n) AS source, id(m) AS target, r.distance AS distance, coalesce(r.condition, 1.0) AS quality'
+) 
+
+load csv with headers from 'https://raw.githubusercontent.com/Knoxyherself/Big-Data-Assignment/main/uu.csv' AS row
+CREATE (a:Tweeter { Name:row.from})
+CREATE (b:Tweeter { Name:row.to})
+CREATE (a)-[r:TWEET {Weight:row.weight}]->(b)
+RETURN a,b,r
+#Don’t need but nice to have:
+ORDER BY r.weight DESC
